@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-6">
+            <div class="card edit-card" id="add_truck">
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" action="" id="add_truck_form">
+                        <div class="text-center">
+                            <h3 style="margin-top: 0px;">Edit Truck Form</h3>
+                        </div>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="foodtype">Select Food Type</label>
+                            <select name="foodtype" id="foodtype" class="form-control">
+                                <option value="">Select Position</option>
+                                {% for x in foodtype %}
+                                <option value="{{x.id}}" {% if x.id==foodtruck.foodtype.id %}selected{% endif %}>
+                                    {{x.foodtype}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="playername">Owner Name</label>
+                            <input type="text" value="{{foodtruck.owner_name}}" class="form-control" id="owner_name"
+                                name="owner_name" aria-describedby="emailHelp" placeholder="Enter Owner Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="playercredit">Location</label>
+                            <input type="text" class="form-control" name="location" id="location"
+                                placeholder="Enter You Location" value="{{foodtruck.location}}">
+                        </div>
+                        <label>Truck Image</label><br>
+                        <label>Current Image: {{foodtruck.truck_image}}</label>
+                        <div class="form-group">
+                            <input type="file" class="form-control" id="truck_image" name='image'
+                                value="{{foodtruck.truck_image}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="input_starttime">Opening Time</label>
+                            <input placeholder="Selected time" type="time" id="input_starttime"
+                                class="form-control timepicker time" name="open_time"
+                                value="{{foodtruck.opening_time}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="input_starttime">Closing Time</label>
+                            <input placeholder="Selected time" type="time" id="input_starttime"
+                                class="form-control timepicker time" name="close_time"
+                                value="{{foodtruck.closing_time}}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+    });
+</script>
+{% endblock %}

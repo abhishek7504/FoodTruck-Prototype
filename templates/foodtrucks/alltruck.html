@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="container">
+  <div class="row">
+    {% if trucks %}
+    {% for x in trucks %}
+    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete {{x.owner_name}}'s truck?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <a href="{% url 'foodtrucks:deletetruck' truck_id=x.id %}" class="btn btn-danger">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+
+    <div class="col-md-4 truck-card">
+      <div class="card">
+        <img src="/media/{{x.truck_image}}" class="card-img-top" alt="{{x.truck_image}}">
+        <div class="card-body">
+          <h5 class="card-title">Food Type: {{x.foodtype}}
+            <a class="d-right edit-btn" href="{% url 'foodtrucks:edit' truck_id=x.id %}" style="color: #333333;"><i
+                class="fas fa-pen"></i></a>
+            <a class="d-right delete-btn" href="{% url 'foodtrucks:deletetruck' truck_id=x.id %}" style="color: red;"><i
+                class="fas fa-trash"></i></a>
+            <!-- <span class="d-right" style="color: red;" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash"></i></span> -->
+
+          </h5>
+          <p class="card-text location">Location: {{x.location}}</p>
+          <div class="card-info">
+            <p class="card-text"><i class="fas fa-user"></i> Truck Owner: {{x.owner_name}}</p>
+            <p class="card-text"><i class="fas fa-lock-open"></i> Opening Time: <span
+                id="opentime">{{x.opening_time}}</span></p>
+            <p class="card-text"><i class="fas fa-lock"></i> Closing Time: <span
+                id="closetime">{{x.closing_time}}</span></p>
+            <p class="card-text"><i class="fas fa-store"></i> Truck Status:
+              <span id="truck-status">
+                {% if current_time > x.opening_time and current_time < x.closing_time %}
+                  OPEN
+                {% else %}
+                 CLOSED
+                {% endif %}
+              </span>
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <br>
+    {% endfor %}
+    {% else %}
+    <div class="row">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <p>OOPS! NO DATA FOUND ACCORDING TO YOUR SEARCH</p>
+          <p><a href="{% url 'foodtrucks:alltrucks' %}">Get back to all trucks.</a></p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="paginator">
+    {% if trucks.has_other_pages %}
+    <ul class="pagination">
+      {% if trucks.has_previous %}
+      <li class="page-item"><a href="?page={{ trucks.previous_page_number }}">&laquo;</a></li>
+      {% else %}
+      <li class="disabled page-item"><span>&laquo;</span></li>
+      {% endif %}
+      {% for i in trucks.paginator.page_range %}
+      {% if trucks.number == i %}
+      <li class="active page-item"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+      <li class="page-item"><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if trucks.has_next %}
+      <li class="page-item"><a href="?page={{ trucks.next_page_number }}">&raquo;</a></li>
+      {% else %}
+      <li class="disabled page-item"><span>&raquo;</span></li>
+      {% endif %}
+    </ul>
+    {% endif %}
+  </div>
+
+
+</div>
+
+
+
+
+</div>
+
+<script>
+
+  {% for x in trucks %}
+
+  var opentime = '{{x.opening_time}}';
+  var closetime = '{{x.closing_time}}';
+  console.log(opentime);
+  var time = new Date();
+  var currentTime = time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+  console.log(currentTime);
+  if (currentTime > opentime && currentTime < closetime) {
+    console.log('Open');
+    document.getElementById('truck-status').innerHTML = "Open";
+    $('#truck-status').html("Open");
+  }
+  else {
+    console.log('close');
+  }
+  {% endfor %}
+
+</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,70 @@
+.white{
+    color: #ffffff;
+}
+.truck-card img.card-img-top {
+    max-height: 230px;
+    min-height: 230px;
+}
+
+
+.col-md-4.truck-card {
+    margin-bottom: 20px;
+}
+
+p.card-text.location {
+    min-height: 40px;
+    max-height: 40px;
+}
+
+a.d-right.edit-btn {
+    border: 1px solid #333333;
+    border-radius: 50%;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a.d-right.delete-btn {
+    border: 1px solid red;
+    border-radius: 50%;
+    padding: 5px;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.d-right {
+    float: right;
+}
+
+.paginator {
+    text-align: center;
+}
+
+.card-info i {
+    width: 20px;
+}
+
+.edit-card {
+    margin-bottom: 20px;
+}
+
+.add-card {
+    margin-bottom: 20px;
+}
+
+h1.heading {
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 30px;
+}
+
+a.nav-link.white:hover {
+    color: white;
+}
